@@ -1,0 +1,26 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": ".NET Core Launch (web)",
+        "type": "coreclr",
+        "request": "launch",
+        "preLaunchTask": "build",
+        "launchSettingsFilePath": "${workspaceFolder}/src/Umbraco.Aspire.Umbraco/Properties/launchSettings.json",
+        "program": "${workspaceFolder}/src/Umbraco.Aspire.Umbraco/bin/Debug/net9.0/Umbraco.Aspire.Umbraco.dll",
+        "args": [],
+        "cwd": "${workspaceFolder}/src/Umbraco.Aspire.Umbraco/",
+        "stopAtEntry": false,
+        "env": {
+          "ASPNETCORE_ENVIRONMENT": "Development"
+        },
+        "sourceFileMap": {
+          "/Views": "${workspaceFolder}/Views"
+        }
+      }
+
+    ]
+}

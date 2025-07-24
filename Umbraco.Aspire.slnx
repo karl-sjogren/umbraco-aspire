@@ -1,0 +1,15 @@
+<Solution>
+  <Folder Name="/benchmarks/">
+    <Project Path="benchmarks/Umbraco.Aspire.Benchmarks/Umbraco.Aspire.Benchmarks.csproj" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/Umbraco.Aspire.AppHost/Umbraco.Aspire.AppHost.csproj" />
+    <Project Path="src/Umbraco.Aspire.Core/Umbraco.Aspire.Core.csproj" />
+    <Project Path="src/Umbraco.Aspire.Umbraco/Umbraco.Aspire.Umbraco.csproj" />
+    <Project Path="src/Umbraco.Aspire.ServiceDefaults/Umbraco.Aspire.ServiceDefaults.csproj" />
+  </Folder>
+  <Folder Name="/test/">
+    <Project Path="test/Umbraco.Aspire.Core.Tests/Umbraco.Aspire.Core.Tests.csproj" />
+    <Project Path="test/Umbraco.Aspire.TestHelpers/Umbraco.Aspire.TestHelpers.csproj" />
+  </Folder>
+</Solution>
