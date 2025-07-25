@@ -12,14 +12,12 @@ if(builder.ExecutionContext.IsRunMode) {
         });
 }
 
-var storage = builder.AddAzureStorage("umbraco-aspire-storage");
-
-if(builder.ExecutionContext.IsRunMode) {
-    storage.RunAsEmulator(azurite => {
+var storage = builder
+    .AddAzureStorage("umbraco-aspire-storage")
+    .RunAsEmulator(azurite => {
         azurite.WithDataVolume();
         azurite.WithLifetime(ContainerLifetime.Persistent);
     });
-}
 
 var mediaContainer = storage.AddBlobs("umbraco-aspire-storage-blobs")
     .AddBlobContainer("umbraco-media");

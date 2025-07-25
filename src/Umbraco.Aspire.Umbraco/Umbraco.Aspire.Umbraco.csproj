@@ -5,15 +5,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Umbraco.Aspire.OpenTelemetry\Umbraco.Aspire.OpenTelemetry.csproj" />
     <ProjectReference Include="..\Umbraco.Aspire.ServiceDefaults\Umbraco.Aspire.ServiceDefaults.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Aspire.Azure.Storage.Blobs" />
     <PackageReference Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" />
     <PackageReference Include="Azure.Extensions.AspNetCore.Configuration.Secrets" />
     <PackageReference Include="Umbraco.Cms" />
     <PackageReference Include="Umbraco.StorageProviders.AzureBlob" />
     <PackageReference Include="Umbraco.StorageProviders.AzureBlob.ImageSharp" />
+    <PackageReference Include="uSync" />
   </ItemGroup>
 
   <PropertyGroup>

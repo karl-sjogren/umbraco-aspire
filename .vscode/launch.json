@@ -5,14 +5,14 @@
     "version": "0.2.0",
     "configurations": [
       {
-        "name": ".NET Core Launch (web)",
+        "name": ".NET Core Launch (apphost)",
         "type": "coreclr",
         "request": "launch",
         "preLaunchTask": "build",
-        "launchSettingsFilePath": "${workspaceFolder}/src/Umbraco.Aspire.Umbraco/Properties/launchSettings.json",
-        "program": "${workspaceFolder}/src/Umbraco.Aspire.Umbraco/bin/Debug/net9.0/Umbraco.Aspire.Umbraco.dll",
+        "launchSettingsFilePath": "${workspaceFolder}/src/Umbraco.Aspire.AppHost/Properties/launchSettings.json",
+        "program": "${workspaceFolder}/src/Umbraco.Aspire.AppHost/bin/Debug/net9.0/Umbraco.Aspire.AppHost.dll",
         "args": [],
-        "cwd": "${workspaceFolder}/src/Umbraco.Aspire.Umbraco/",
+        "cwd": "${workspaceFolder}/src/Umbraco.Aspire.AppHost/",
         "stopAtEntry": false,
         "env": {
           "ASPNETCORE_ENVIRONMENT": "Development"

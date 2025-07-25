@@ -6,6 +6,7 @@
     <Project Path="src/Umbraco.Aspire.AppHost/Umbraco.Aspire.AppHost.csproj" />
     <Project Path="src/Umbraco.Aspire.Core/Umbraco.Aspire.Core.csproj" />
     <Project Path="src/Umbraco.Aspire.Umbraco/Umbraco.Aspire.Umbraco.csproj" />
+    <Project Path="src/Umbraco.Aspire.OpenTelemetry/Umbraco.Aspire.OpenTelemetry.csproj" />
     <Project Path="src/Umbraco.Aspire.ServiceDefaults/Umbraco.Aspire.ServiceDefaults.csproj" />
   </Folder>
   <Folder Name="/test/">

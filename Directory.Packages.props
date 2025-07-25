@@ -8,6 +8,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageVersion Include="Aspire.Azure.Security.KeyVault" Version="9.3.1" />
+    <PackageVersion Include="Aspire.Azure.Storage.Blobs" Version="9.3.1" />
     <PackageVersion Include="Aspire.Hosting.AppHost" Version="9.3.1" />
     <PackageVersion Include="Aspire.Hosting.Azure.EventHubs" Version="9.3.1" />
     <PackageVersion Include="Aspire.Hosting.Azure.KeyVault" Version="9.3.1" />
@@ -35,12 +36,15 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.12.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.12.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.12.0" />
+    <PackageVersion Include="Serilog.Extensions.Logging" Version="9.0.2" />
+    <PackageVersion Include="Serilog.Sinks.OpenTelemetry" Version="4.2.0" />
     <PackageVersion Include="Shouldly" Version="4.3.0" />
     <PackageVersion Include="TestableIO.System.IO.Abstractions.TestingHelpers" Version="22.0.13" />
     <PackageVersion Include="TestableIO.System.IO.Abstractions.Wrappers" Version="22.0.13" />
     <PackageVersion Include="Umbraco.Cms" Version="16.1.0" />
     <PackageVersion Include="Umbraco.StorageProviders.AzureBlob" Version="16.0.0" />
     <PackageVersion Include="Umbraco.StorageProviders.AzureBlob.ImageSharp" Version="16.0.0" />
+    <PackageVersion Include="uSync" Version="16.0.2" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="3.0.2" />
     <PackageVersion Include="xunit.v3" Version="2.0.1" />
   </ItemGroup>
