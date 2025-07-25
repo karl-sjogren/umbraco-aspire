@@ -19,8 +19,13 @@ var storage = builder
         azurite.WithLifetime(ContainerLifetime.Persistent);
     });
 
-var mediaContainer = storage.AddBlobs("umbraco-aspire-storage-blobs")
-    .AddBlobContainer("umbraco-media");
+// Keep a reference to the storage resource so we can get a connection string
+// without the media container later for Umbraco to use
+var blobStorage = storage.AddBlobs("umbraco-aspire-storage-blobs");
+
+// Create a media container in the blob storage and keep a reference to it
+// so we can use it with the Aspire.Azure.Storage.Blobs package
+var mediaContainer = blobStorage.AddBlobContainer("umbraco-media");
 
 var azureSqlDatabase = azureSql
     .AddDatabase("umbracoDbDSN");
@@ -31,10 +36,8 @@ var umbraco = builder.AddProject<Projects.Umbraco_Aspire_Umbraco>("umbraco-aspir
     .WaitFor(azureSqlDatabase)
     .WithReference(mediaContainer)
     .WaitFor(mediaContainer)
-    .WithEnvironment(context => {
-        context.EnvironmentVariables["Umbraco__Storage__AzureBlob__Media__ConnectionString"] = new ConnectionStringReference(mediaContainer.Resource, false);
-    })
-    .WithEnvironment("Umbraco__Storage__AzureBlob__Media__ContainerName", mediaContainer.Resource.Name)
+    .WithEnvironment("Umbraco__Storage__AzureBlob__Media__ConnectionString", blobStorage) // Use the blob storage resource and not the media container directly to get a proper connection string
+    .WithEnvironment("Umbraco__Storage__AzureBlob__Media__ContainerName", mediaContainer.Resource.Name) // Just get the container name from the media container resource
     .WithEnvironment("umbracoDbDSN_ProviderName", "System.Data.SqlClient")
     .WithEnvironment("Umbraco__CMS__Unattended__InstallUnattended", bool.TrueString)
     .WithEnvironment("Umbraco__CMS__Unattended__UnattendedUserName", "jack.sparrow")
@@ -51,7 +54,7 @@ if(builder.ExecutionContext.IsRunMode) {
 
     umbraco
         .WaitFor(keyvault)
-        .WithEnvironment("ConnectionStrings__keyvault", ""); // TOD Figure out
+        .WithEnvironment("ConnectionStrings__keyvault", ""); // TODO Figure out
 }
 
 if(builder.ExecutionContext.IsRunMode) {
