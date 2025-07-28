@@ -1,68 +1,16 @@
-using AzureKeyVaultEmulator.Aspire.Hosting;
+using Umbraco.Aspire.AppHost.Extensions;
 
 var builder = DistributedApplication.CreateBuilder(args);
 
-var azureSql = builder.AddAzureSqlServer("umbraco-aspire-sql");
+builder.DeployAsAppService("umbraco-aspire-appservice-plan", "B2", "Basic");
 
-if(builder.ExecutionContext.IsRunMode) {
-    azureSql
-        .RunAsContainer(x => {
-            x.WithDataVolume();
-            x.WithLifetime(ContainerLifetime.Persistent);
-        });
-}
+var umbraco = builder.AddUmbracoProject<Projects.Umbraco_Aspire_Umbraco>("umbraco-aspire-umbraco");
 
-var storage = builder
-    .AddAzureStorage("umbraco-aspire-storage")
-    .RunAsEmulator(azurite => {
-        azurite.WithDataVolume();
-        azurite.WithLifetime(ContainerLifetime.Persistent);
-    });
-
-// Keep a reference to the storage resource so we can get a connection string
-// without the media container later for Umbraco to use
-var blobStorage = storage.AddBlobs("umbraco-aspire-storage-blobs");
-
-// Create a media container in the blob storage and keep a reference to it
-// so we can use it with the Aspire.Azure.Storage.Blobs package
-var mediaContainer = blobStorage.AddBlobContainer("umbraco-media");
-
-var azureSqlDatabase = azureSql
-    .AddDatabase("umbracoDbDSN");
-
-var umbraco = builder.AddProject<Projects.Umbraco_Aspire_Umbraco>("umbraco-aspire-umbraco")
-    .WithExternalHttpEndpoints()
-    .WithReference(azureSqlDatabase)
-    .WaitFor(azureSqlDatabase)
-    .WithReference(mediaContainer)
-    .WaitFor(mediaContainer)
-    .WithEnvironment("Umbraco__Storage__AzureBlob__Media__ConnectionString", blobStorage) // Use the blob storage resource and not the media container directly to get a proper connection string
-    .WithEnvironment("Umbraco__Storage__AzureBlob__Media__ContainerName", mediaContainer.Resource.Name) // Just get the container name from the media container resource
-    .WithEnvironment("umbracoDbDSN_ProviderName", "System.Data.SqlClient")
-    .WithEnvironment("Umbraco__CMS__Unattended__InstallUnattended", bool.TrueString)
-    .WithEnvironment("Umbraco__CMS__Unattended__UnattendedUserName", "jack.sparrow")
-    .WithEnvironment("Umbraco__CMS__Unattended__UnattendedUserEmail", "jack.sparrow@pirates.com")
-    .WithEnvironment("Umbraco__CMS__Unattended__UnattendedUserPassword", "password123");
-
-if(builder.ExecutionContext.IsRunMode) {
-    var keyvault = builder
-        .AddDockerfile("umbraco-aspire-keyvault", "docker/keyvault")
-        .WithEndpoint(4997, 4997, "https")
-        .WithExternalHttpEndpoints()
-        .WithHttpHealthCheck("/token")
-        .WithBindMount(source: Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "/.aspire/keyvault/", "/certs");
-
-    umbraco
-        .WaitFor(keyvault)
-        .WithEnvironment("ConnectionStrings__keyvault", ""); // TODO Figure out
-}
-
-if(builder.ExecutionContext.IsRunMode) {
-    //var frontend = builder.AddNpmApp("frontend", "../Umbraco.Aspire.Frontend", "dev");
-
-    //umbraco.WaitFor(frontend);
-} else if(builder.ExecutionContext.IsPublishMode) {
-    // Build the frontend in publish mode?
-}
+builder
+    .AddAzureSql(umbraco, "umbraco-aspire-sql", "umbraco-aspire-sql-db", "Basic", "Basic")
+    .AddAzureStorage(umbraco, "umbraco-aspire-storage", "umbraco-aspire-storage-blobs", "umbraco-media")
+    .AddAzureKeyVault(umbraco, "umbraco-aspire-keyvault")
+    .AddApplicationInsights(umbraco, "umbraco-aspire-insights")
+    .AddFrontendProject(umbraco, "umbraco-aspire-frontend");
 
 builder.Build().Run();

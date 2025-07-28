@@ -29,12 +29,15 @@ public class AspireOpenTelemetryLoggerSettings : ILoggerSettings {
 
                 //To remove the duplicate issue, we can use the below code to get the key and value from the configuration
 
-                var (otelResourceAttribute, otelResourceAttributeValue) = _configuration["OTEL_RESOURCE_ATTRIBUTES"]?.Split('=') switch {
-                    [string k, string v] => (k, v),
-                    _ => throw new Exception($"Invalid header format {_configuration["OTEL_RESOURCE_ATTRIBUTES"]}")
-                };
+                var attributes = _configuration["OTEL_RESOURCE_ATTRIBUTES"]?.Split(',') ?? [];
+                foreach(var attribute in attributes) {
+                    var (otelResourceAttribute, otelResourceAttributeValue) = attribute.Split('=') switch {
+                        [string k, string v] => (k, v),
+                        _ => throw new Exception($"Invalid attribute format {attribute}")
+                    };
 
-                options.ResourceAttributes.Add(otelResourceAttribute, otelResourceAttributeValue);
+                    options.ResourceAttributes.Add(otelResourceAttribute, otelResourceAttributeValue);
+                }
             });
     }
 }

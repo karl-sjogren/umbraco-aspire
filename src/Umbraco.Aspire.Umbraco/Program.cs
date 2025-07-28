@@ -1,6 +1,7 @@
 using Azure.Extensions.AspNetCore.Configuration.Secrets;
 using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Options;
 using Serilog;
 using Serilog.Configuration;
@@ -15,6 +16,13 @@ builder.AddServiceDefaults();
 
 builder.Services.AddSerilog();
 builder.Services.AddSingleton<ILoggerSettings, DefaultLoggerSettings>();
+
+var sqlConnectionString = builder.Configuration.GetConnectionString("umbracoDbDSN");
+using(var connection = new SqlConnection(sqlConnectionString)) {
+    await connection.OpenAsync();
+    var serverVersion = connection.ServerVersion;
+    Console.WriteLine($"Connected to SQL Server version: {serverVersion}");
+}
 
 if(builder.Configuration.GetConnectionString("umbraco-aspire-keyvault") is string keyVaultConnectionString) {
     var options = new SecretClientOptions { DisableChallengeResourceVerification = true, Diagnostics = { IsLoggingEnabled = true } };
