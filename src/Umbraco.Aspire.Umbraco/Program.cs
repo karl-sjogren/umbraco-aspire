@@ -2,13 +2,10 @@ using Azure.Extensions.AspNetCore.Configuration.Secrets;
 using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
 using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Options;
 using Serilog;
 using Serilog.Configuration;
 using Umbraco.Aspire.Umbraco;
-using Umbraco.Aspire.Umbraco.PostConfigureOptions;
-using Umbraco.Cms.Persistence.EFCore;
-using Umbraco.StorageProviders.AzureBlob.IO;
+using Umbraco.Aspire.Umbraco.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,13 +39,8 @@ builder.CreateUmbracoBuilder()
     .AddBackOffice()
     .AddWebsite()
     .AddComposers()
-    .AddAzureBlobMediaFileSystem()
-    .AddAzureBlobImageSharpCache()
+    .ConfigureAspireServices(builder)
     .Build();
-
-builder.EnrichSqlServerDbContext<UmbracoDbContext>();
-builder.AddAzureBlobContainerClient("umbraco-media");
-builder.Services.AddSingleton<IPostConfigureOptions<AzureBlobFileSystemOptions>, PostConfigureAzureBlobFileSystemOptions>();
 
 var app = builder.Build();
 

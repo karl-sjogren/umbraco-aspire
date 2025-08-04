@@ -17,9 +17,7 @@ public static partial class IDistributedApplicationBuilderExtensions {
 
         umbracoProject
             .WithReference(blobContainer)
-            .WaitFor(blobContainer)
-            .WithEnvironment("Umbraco__Storage__AzureBlob__Media__ConnectionString", blobContainer.Resource)
-            .WithEnvironment("Umbraco__Storage__AzureBlob__Media__ContainerName", blobContainer.Resource.Name);
+            .WaitFor(blobContainer);
 
         return builder;
     }
