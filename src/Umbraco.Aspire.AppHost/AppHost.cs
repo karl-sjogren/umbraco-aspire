@@ -8,8 +8,8 @@ var umbraco = builder.AddUmbracoProject<Projects.Umbraco_Aspire_Umbraco>("umbrac
 
 builder
     .AddAzureSql(umbraco, "umbraco-aspire-sql", "umbraco-aspire-sql-db", "Basic", "Basic")
-    .AddAzureStorage(umbraco, "umbraco-aspire-storage", "umbraco-aspire-storage-blobs", "umbraco-media")
-    .AddAzureKeyVault(umbraco, "umbraco-aspire-keyvault")
+    .AddAzureStorage(umbraco, "umbraco-aspire-storage", "umbraco-media")
+    //.AddAzureKeyVault(umbraco, "umbraco-aspire-keyvault")
     .AddApplicationInsights(umbraco, "umbraco-aspire-insights")
     .AddFrontendProject(umbraco, "umbraco-aspire-frontend");
 
