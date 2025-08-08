@@ -1,4 +1,4 @@
 # Umbraco Aspire Example
 
-This repository contains an example of how to set up Umbraco Aspire with Azure
-Key Vault and Azure Blob Storage for media files.
+This repository contains an example of how to set up Umbraco with Aspire
+and then doing some extra stuff for fun.
