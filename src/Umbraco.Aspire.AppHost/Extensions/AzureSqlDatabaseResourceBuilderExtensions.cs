@@ -12,6 +12,10 @@ public static class AzureSqlDatabaseResourceBuilderExtensions {
     public static IResourceBuilder<AzureSqlDatabaseResource> WithVSCodeMSSQLCommand(
             this IResourceBuilder<AzureSqlDatabaseResource> builder,
             bool useInsider = false) {
+        if(!builder.ApplicationBuilder.ExecutionContext.IsRunMode) {
+            return builder;
+        }
+
         var commandOptions = new CommandOptions {
             UpdateState = OnUpdateResourceState,
             IconName = "Code",
@@ -31,15 +35,6 @@ public static class AzureSqlDatabaseResourceBuilderExtensions {
             IResourceBuilder<AzureSqlDatabaseResource> builder,
             ExecuteCommandContext context,
             bool useInsider) {
-        /*
-        var connectionString = await builder.Resource.() ??
-            throw new InvalidOperationException(
-                $"Unable to get the '{context.ResourceName}' connection string.");
-
-        await using var connection = ConnectionMultiplexer.Connect(connectionString);
-        var database = connection.GetDatabase();
-        await database.ExecuteAsync("FLUSHALL");*/
-
         var logger = context.ServiceProvider.GetRequiredService<ILogger<Program>>();
 
         var connectionStringWithResource = builder.Resource as IResourceWithConnectionString;
@@ -54,8 +49,8 @@ public static class AzureSqlDatabaseResourceBuilderExtensions {
         var stringBuilder = new StringBuilder();
         stringBuilder.Append($"server={Uri.EscapeDataString(connectionStringBuilder.DataSource)};");
         stringBuilder.Append($"database={Uri.EscapeDataString(connectionStringBuilder.InitialCatalog)};");
-        stringBuilder.Append($"authenticationType=SqlLogin;");
-        stringBuilder.Append($"trustServerCertificate=true;");
+        stringBuilder.Append("authenticationType=SqlLogin;");
+        stringBuilder.Append("trustServerCertificate=true;");
         stringBuilder.Append($"user={Uri.EscapeDataString(connectionStringBuilder.UserID)};");
         stringBuilder.Append($"password={Uri.EscapeDataString(connectionStringBuilder.Password)};");
 

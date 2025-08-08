@@ -11,6 +11,7 @@ public static partial class IDistributedApplicationBuilderExtensions {
             .RunAsEmulator(azurite => {
                 azurite.WithDataVolume();
                 azurite.WithLifetime(ContainerLifetime.Persistent);
+                azurite.WithCopyFromAzureCommand();
             });
 
         var blobContainer = storage.AddBlobContainer(containerName, blobContainerName: containerName);
