@@ -31,7 +31,8 @@ public static partial class IDistributedApplicationBuilderExtensions {
         }
 
         var azureSqlDatabase = azureSql
-            .AddDatabase(databaseName);
+            .AddDatabase(databaseName)
+            .WithVSCodeMSSQLCommand();
 
         umbracoProject
             .WithReference(azureSqlDatabase)
