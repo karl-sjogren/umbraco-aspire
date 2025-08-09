@@ -6,11 +6,15 @@ public static partial class IDistributedApplicationBuilderExtensions {
             IResourceBuilder<ProjectResource> umbracoProject,
             string frontendProjectName) {
         if(builder.ExecutionContext.IsRunMode) {
-            //var frontend = builder.AddNpmApp("frontend", "../Umbraco.Aspire.Frontend", "dev");
+            var frontend = builder
+                .AddNpmApp(frontendProjectName, "../Umbraco.Aspire.Frontend", "dev");
 
-            //umbraco.WaitFor(frontend);
+            umbracoProject.WaitFor(frontend);
         } else if(builder.ExecutionContext.IsPublishMode) {
-            // Build the frontend in publish mode?
+            // Not sure this is the right way to do this, might want to put this in the project file instead
+            var frontend = builder.AddNpmApp(frontendProjectName, "../Umbraco.Aspire.Frontend", "build");
+
+            umbracoProject.WaitFor(frontend);
         }
 
         return builder;

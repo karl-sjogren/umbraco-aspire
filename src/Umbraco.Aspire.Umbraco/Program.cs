@@ -4,6 +4,7 @@ using Azure.Security.KeyVault.Secrets;
 using Microsoft.Data.SqlClient;
 using Serilog;
 using Serilog.Configuration;
+using Shorthand.Vite;
 using Umbraco.Aspire.Umbraco;
 using Umbraco.Aspire.Umbraco.Extensions;
 
@@ -41,6 +42,12 @@ builder.CreateUmbracoBuilder()
     .AddComposers()
     .ConfigureAspireServices(builder)
     .Build();
+
+builder.Services.AddVite(options => {
+    options.ManifestFileName = ".vite/manifest.json";
+    options.Port = 5010;
+    options.Https = true;
+});
 
 var app = builder.Build();
 
