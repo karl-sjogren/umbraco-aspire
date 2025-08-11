@@ -14,6 +14,7 @@
     <PackageVersion Include="Aspire.Hosting.Azure.AppService" Version="9.4.0-preview.1.25378.8" />
     <PackageVersion Include="Aspire.Hosting.Azure.EventHubs" Version="9.4.0" />
     <PackageVersion Include="Aspire.Hosting.Azure.KeyVault" Version="9.4.0" />
+    <PackageVersion Include="Aspire.Hosting.Azure.Redis" Version="9.4.0" />
     <PackageVersion Include="Aspire.Hosting.Azure.Sql" Version="9.4.0" />
     <PackageVersion Include="Aspire.Hosting.Azure.Storage" Version="9.4.0" />
     <PackageVersion Include="Aspire.Hosting.NodeJs" Version="9.4.0" />

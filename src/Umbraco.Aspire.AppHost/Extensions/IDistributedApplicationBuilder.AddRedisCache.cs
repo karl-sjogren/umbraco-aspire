@@ -5,11 +5,14 @@ public static partial class IDistributedApplicationBuilderExtensions {
             this IDistributedApplicationBuilder builder,
             IResourceBuilder<ProjectResource> umbracoProject,
             string redisCacheName) {
-        var redisCache = builder.AddRedis(redisCacheName)
-            .WithDataVolume(isReadOnly: false);
+        var redisCache = builder.AddAzureRedis(redisCacheName);
 
         if(builder.ExecutionContext.IsRunMode) {
-            redisCache.WithRedisInsight();
+            redisCache
+                .RunAsContainer(redis => {
+                    redis.WithDataVolume();
+                    redis.WithRedisInsight();
+                });
         }
 
         umbracoProject.WithReference(redisCache)
