@@ -49,6 +49,8 @@ builder.Services.AddVite(options => {
     options.Https = true;
 });
 
+builder.AddRedisDistributedCache(connectionName: "umbraco-aspire-redis");
+
 var app = builder.Build();
 
 await app.BootUmbracoAsync();

@@ -12,6 +12,8 @@
   <ItemGroup>
     <PackageReference Include="Aspire.Azure.Storage.Blobs" />
     <PackageReference Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" />
+    <PackageReference Include="Aspire.StackExchange.Redis" />
+    <PackageReference Include="Aspire.StackExchange.Redis.DistributedCaching" />
     <PackageReference Include="Azure.Extensions.AspNetCore.Configuration.Secrets" />
     <PackageReference Include="Shorthand.Vite" />
     <PackageReference Include="Umbraco.Cms" />
@@ -23,6 +25,12 @@
   <!-- Force include of Vite 5+ manifest -->
   <ItemGroup>
     <Content Include="wwwroot\.vite\**" CopyToPublishDirectory="PreserveNewest" Exclude="$(DefaultItemExcludes)" />
+  </ItemGroup>
+
+  <!-- Disable watch for umbraco files such as lucene -->
+  <ItemGroup>
+    <Content Remove="umbraco\**" />
+    <Content Include="umbraco\**" Watch="false" />
   </ItemGroup>
 
   <PropertyGroup>

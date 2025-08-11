@@ -1,3 +1,3 @@
-# TestSolution.Frontend
+# Umbraco.Aspire.Frontend
 
-TODO Write a description here
+Simple Vite setup with OpenTelemetry and Web Vitals instrumentation.
