@@ -1,7 +1,6 @@
 using Azure.Extensions.AspNetCore.Configuration.Secrets;
 using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
-using Microsoft.Data.SqlClient;
 using Serilog;
 using Serilog.Configuration;
 using Shorthand.Vite;
@@ -15,13 +14,6 @@ builder.AddServiceDefaults();
 builder.Services.AddSerilog();
 builder.Services.AddSingleton<ILoggerSettings, DefaultLoggerSettings>();
 
-var sqlConnectionString = builder.Configuration.GetConnectionString("umbracoDbDSN");
-using(var connection = new SqlConnection(sqlConnectionString)) {
-    await connection.OpenAsync();
-    var serverVersion = connection.ServerVersion;
-    Console.WriteLine($"Connected to SQL Server version: {serverVersion}");
-}
-
 if(builder.Configuration.GetConnectionString("umbraco-aspire-keyvault") is string keyVaultConnectionString) {
     var options = new SecretClientOptions { DisableChallengeResourceVerification = true, Diagnostics = { IsLoggingEnabled = true } };
     var secretClient = new SecretClient(new Uri(keyVaultConnectionString), new DefaultAzureCredential(), options);
@@ -31,10 +23,8 @@ if(builder.Configuration.GetConnectionString("umbraco-aspire-keyvault") is strin
     builder.Configuration.AddAzureKeyVault(new Uri($"https://{keyVaultName}.vault.azure.net/"), new DefaultAzureCredential());
 }
 
-if(builder.Environment.IsDevelopment()) {
-    var configurationDebugView = builder.Configuration.GetDebugView();
-    Console.WriteLine($"Configuration Debug View: {configurationDebugView}");
-}
+var configurationDebugView = builder.Configuration.GetDebugView();
+Console.WriteLine($"Configuration Debug View: {configurationDebugView}");
 
 builder.CreateUmbracoBuilder()
     .AddBackOffice()
@@ -48,8 +38,6 @@ builder.Services.AddVite(options => {
     options.Port = 5010;
     options.Https = true;
 });
-
-builder.AddRedisDistributedCache(connectionName: "umbraco-aspire-redis");
 
 var app = builder.Build();
 

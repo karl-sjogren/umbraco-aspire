@@ -2,16 +2,16 @@ using Umbraco.Aspire.AppHost.Extensions;
 
 var builder = DistributedApplication.CreateBuilder(args);
 
-builder.DeployAsAppService("umbraco-aspire-appservice-plan", "B2", "Basic");
+builder.DeployAsAppService("umbracoaspireappserviceplan", "B2", "Basic");
 
-var umbraco = builder.AddUmbracoProject<Projects.Umbraco_Aspire_Umbraco>("umbraco-aspire-umbraco");
+var umbraco = builder.AddUmbracoProject<Projects.Umbraco_Aspire_Umbraco>("umbracoaspireapp");
 
 builder
-    .AddAzureSql(umbraco, "umbraco-aspire-sql", "umbraco-aspire-sql-db", "Basic", "Basic")
-    .AddAzureStorage(umbraco, "umbraco-aspire-storage", "umbraco-media")
+    .AddAzureSql(umbraco, "umbracoaspiresql", "umbracoaspiresqldb", "Basic", "Basic")
+    .AddAzureStorage(umbraco, "umbracoaspirestorage", "umbracomedia")
     //.AddAzureKeyVault(umbraco, "umbraco-aspire-keyvault")
-    .AddApplicationInsights(umbraco, "umbraco-aspire-insights")
-    .AddRedisCache(umbraco, "umbraco-aspire-redis")
-    .AddFrontendProject(umbraco, "umbraco-aspire-frontend");
+    .AddApplicationInsights(umbraco, "umbracoaspireinsights")
+    //.AddRedisCache(umbraco, "umbracoaspireredis")
+    .AddFrontendProject(umbraco, "umbracoaspirefrontend");
 
 builder.Build().Run();

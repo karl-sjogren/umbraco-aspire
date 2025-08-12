@@ -12,9 +12,9 @@ public static partial class IDistributedApplicationBuilderExtensions {
             umbracoProject.WaitFor(frontend);
         } else if(builder.ExecutionContext.IsPublishMode) {
             // Not sure this is the right way to do this, might want to put this in the project file instead
-            var frontend = builder.AddNpmApp(frontendProjectName, "../Umbraco.Aspire.Frontend", "build");
+            //var frontend = builder.AddNpmApp(frontendProjectName, "../Umbraco.Aspire.Frontend", "build");
 
-            umbracoProject.WaitFor(frontend);
+            //umbracoProject.WaitFor(frontend);
         }
 
         return builder;
