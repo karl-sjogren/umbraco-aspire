@@ -19,6 +19,7 @@ public static partial class IDistributedApplicationBuilderExtensions {
                 .WithEnvironment("ConnectionStrings__keyvault", ""); // TODO Figure out
         } else if(builder.ExecutionContext.IsPublishMode) {
             var keyVault = builder.AddAzureKeyVault(keyVaultName);
+
             umbracoProject.WithReference(keyVault);
         }
 

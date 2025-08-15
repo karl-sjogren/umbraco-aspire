@@ -18,30 +18,30 @@ using Umbraco.Extensions;
 
 namespace Umbraco.Cms.Web.Common.PublishedModels
 {
-	/// <summary>Page</summary>
-	[PublishedModel("page")]
-	public partial class Page : PublishedContentModel
+	/// <summary>DAM Image</summary>
+	[PublishedModel("damImage")]
+	public partial class DamImage : PublishedContentModel, IImage
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.1.1+7e82c25")]
-		public new const string ModelTypeAlias = "page";
+		public new const string ModelTypeAlias = "damImage";
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.1.1+7e82c25")]
-		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+		public new const PublishedItemType ModelItemType = PublishedItemType.Media;
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.1.1+7e82c25")]
 		[return: global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		public new static IPublishedContentType GetModelContentType(IPublishedContentTypeCache contentTypeCache)
 			=> PublishedModelUtility.GetModelContentType(contentTypeCache, ModelItemType, ModelTypeAlias);
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.1.1+7e82c25")]
 		[return: global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		public static IPublishedPropertyType GetModelPropertyType<TValue>(IPublishedContentTypeCache contentTypeCache, Expression<Func<Page, TValue>> selector)
+		public static IPublishedPropertyType GetModelPropertyType<TValue>(IPublishedContentTypeCache contentTypeCache, Expression<Func<DamImage, TValue>> selector)
 			=> PublishedModelUtility.GetModelPropertyType(GetModelContentType(contentTypeCache), selector);
 #pragma warning restore 0109
 
 		private IPublishedValueFallback _publishedValueFallback;
 
 		// ctor
-		public Page(IPublishedContent content, IPublishedValueFallback publishedValueFallback)
+		public DamImage(IPublishedContent content, IPublishedValueFallback publishedValueFallback)
 			: base(content, publishedValueFallback)
 		{
 			_publishedValueFallback = publishedValueFallback;
@@ -50,35 +50,40 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		// properties
 
 		///<summary>
-		/// Image cropper
+		/// Size: in bytes
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.1.1+7e82c25")]
-		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("imageCropper")]
-		public virtual global::Umbraco.Cms.Core.PropertyEditors.ValueConverters.ImageCropperValue ImageCropper => this.Value<global::Umbraco.Cms.Core.PropertyEditors.ValueConverters.ImageCropperValue>(_publishedValueFallback, "imageCropper");
+		[ImplementPropertyType("umbracoBytes")]
+		public virtual long UmbracoBytes => global::Umbraco.Cms.Web.Common.PublishedModels.Image.GetUmbracoBytes(this, _publishedValueFallback);
 
 		///<summary>
-		/// Image media picker
+		/// Type
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.1.1+7e82c25")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("imageMediaPicker")]
-		public virtual global::Umbraco.Cms.Core.Models.MediaWithCrops ImageMediaPicker => this.Value<global::Umbraco.Cms.Core.Models.MediaWithCrops>(_publishedValueFallback, "imageMediaPicker");
+		[ImplementPropertyType("umbracoExtension")]
+		public virtual string UmbracoExtension => global::Umbraco.Cms.Web.Common.PublishedModels.Image.GetUmbracoExtension(this, _publishedValueFallback);
 
 		///<summary>
-		/// Media picker
+		/// Image
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.1.1+7e82c25")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("mediaPicker")]
-		public virtual global::Umbraco.Cms.Core.Models.MediaWithCrops MediaPicker => this.Value<global::Umbraco.Cms.Core.Models.MediaWithCrops>(_publishedValueFallback, "mediaPicker");
+		[ImplementPropertyType("umbracoFile")]
+		public virtual global::Umbraco.Cms.Core.PropertyEditors.ValueConverters.ImageCropperValue UmbracoFile => global::Umbraco.Cms.Web.Common.PublishedModels.Image.GetUmbracoFile(this, _publishedValueFallback);
 
 		///<summary>
-		/// Multiple image media picker
+		/// Height: in pixels
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.1.1+7e82c25")]
-		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("multipleImageMediaPicker")]
-		public virtual global::System.Collections.Generic.IEnumerable<global::Umbraco.Cms.Core.Models.MediaWithCrops> MultipleImageMediaPicker => this.Value<global::System.Collections.Generic.IEnumerable<global::Umbraco.Cms.Core.Models.MediaWithCrops>>(_publishedValueFallback, "multipleImageMediaPicker");
+		[ImplementPropertyType("umbracoHeight")]
+		public virtual int UmbracoHeight => global::Umbraco.Cms.Web.Common.PublishedModels.Image.GetUmbracoHeight(this, _publishedValueFallback);
+
+		///<summary>
+		/// Width: in pixels
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.1.1+7e82c25")]
+		[ImplementPropertyType("umbracoWidth")]
+		public virtual int UmbracoWidth => global::Umbraco.Cms.Web.Common.PublishedModels.Image.GetUmbracoWidth(this, _publishedValueFallback);
 	}
 }

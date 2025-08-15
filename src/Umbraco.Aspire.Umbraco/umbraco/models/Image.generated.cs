@@ -18,9 +18,36 @@ using Umbraco.Extensions;
 
 namespace Umbraco.Cms.Web.Common.PublishedModels
 {
+	// Mixin Content Type with alias "Image"
+	/// <summary>Image</summary>
+	public partial interface IImage : IPublishedContent
+	{
+		/// <summary>Size</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.1.1+7e82c25")]
+		long UmbracoBytes { get; }
+
+		/// <summary>Type</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.1.1+7e82c25")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		string UmbracoExtension { get; }
+
+		/// <summary>Image</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.1.1+7e82c25")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		global::Umbraco.Cms.Core.PropertyEditors.ValueConverters.ImageCropperValue UmbracoFile { get; }
+
+		/// <summary>Height</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.1.1+7e82c25")]
+		int UmbracoHeight { get; }
+
+		/// <summary>Width</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.1.1+7e82c25")]
+		int UmbracoWidth { get; }
+	}
+
 	/// <summary>Image</summary>
 	[PublishedModel("Image")]
-	public partial class Image : PublishedContentModel
+	public partial class Image : PublishedContentModel, IImage
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
@@ -54,7 +81,11 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.1.1+7e82c25")]
 		[ImplementPropertyType("umbracoBytes")]
-		public virtual long UmbracoBytes => this.Value<long>(_publishedValueFallback, "umbracoBytes");
+		public virtual long UmbracoBytes => GetUmbracoBytes(this, _publishedValueFallback);
+
+		/// <summary>Static getter for Size</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.1.1+7e82c25")]
+		public static long GetUmbracoBytes(IImage that, IPublishedValueFallback publishedValueFallback) => that.Value<long>(publishedValueFallback, "umbracoBytes");
 
 		///<summary>
 		/// Type
@@ -62,7 +93,12 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.1.1+7e82c25")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("umbracoExtension")]
-		public virtual string UmbracoExtension => this.Value<string>(_publishedValueFallback, "umbracoExtension");
+		public virtual string UmbracoExtension => GetUmbracoExtension(this, _publishedValueFallback);
+
+		/// <summary>Static getter for Type</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.1.1+7e82c25")]
+		[return: global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		public static string GetUmbracoExtension(IImage that, IPublishedValueFallback publishedValueFallback) => that.Value<string>(publishedValueFallback, "umbracoExtension");
 
 		///<summary>
 		/// Image
@@ -70,20 +106,33 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.1.1+7e82c25")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("umbracoFile")]
-		public virtual global::Umbraco.Cms.Core.PropertyEditors.ValueConverters.ImageCropperValue UmbracoFile => this.Value<global::Umbraco.Cms.Core.PropertyEditors.ValueConverters.ImageCropperValue>(_publishedValueFallback, "umbracoFile");
+		public virtual global::Umbraco.Cms.Core.PropertyEditors.ValueConverters.ImageCropperValue UmbracoFile => GetUmbracoFile(this, _publishedValueFallback);
+
+		/// <summary>Static getter for Image</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.1.1+7e82c25")]
+		[return: global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		public static global::Umbraco.Cms.Core.PropertyEditors.ValueConverters.ImageCropperValue GetUmbracoFile(IImage that, IPublishedValueFallback publishedValueFallback) => that.Value<global::Umbraco.Cms.Core.PropertyEditors.ValueConverters.ImageCropperValue>(publishedValueFallback, "umbracoFile");
 
 		///<summary>
 		/// Height: in pixels
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.1.1+7e82c25")]
 		[ImplementPropertyType("umbracoHeight")]
-		public virtual int UmbracoHeight => this.Value<int>(_publishedValueFallback, "umbracoHeight");
+		public virtual int UmbracoHeight => GetUmbracoHeight(this, _publishedValueFallback);
+
+		/// <summary>Static getter for Height</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.1.1+7e82c25")]
+		public static int GetUmbracoHeight(IImage that, IPublishedValueFallback publishedValueFallback) => that.Value<int>(publishedValueFallback, "umbracoHeight");
 
 		///<summary>
 		/// Width: in pixels
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.1.1+7e82c25")]
 		[ImplementPropertyType("umbracoWidth")]
-		public virtual int UmbracoWidth => this.Value<int>(_publishedValueFallback, "umbracoWidth");
+		public virtual int UmbracoWidth => GetUmbracoWidth(this, _publishedValueFallback);
+
+		/// <summary>Static getter for Width</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.1.1+7e82c25")]
+		public static int GetUmbracoWidth(IImage that, IPublishedValueFallback publishedValueFallback) => that.Value<int>(publishedValueFallback, "umbracoWidth");
 	}
 }
