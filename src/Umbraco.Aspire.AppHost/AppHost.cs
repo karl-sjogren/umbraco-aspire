@@ -11,7 +11,7 @@ builder
     .AddAzureStorage(umbraco, "umbracoaspirestorage", "umbracomedia")
     //.AddAzureKeyVault(umbraco, "umbraco-aspire-keyvault")
     .AddApplicationInsights(umbraco, "umbracoaspireinsights")
-    //.AddRedisCache(umbraco, "umbracoaspireredis")
+    .AddRedisCache(umbraco, "umbracoaspireredis")
     .AddFrontendProject(umbraco, "umbracoaspirefrontend");
 
 builder.Build().Run();

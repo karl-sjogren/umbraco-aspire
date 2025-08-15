@@ -7,7 +7,7 @@
       "type": "process",
       "args": [
         "build",
-        "${workspaceFolder}/src/Umbraco.Aspire.Umbraco/Umbraco.Aspire.Umbraco.csproj",
+        "${workspaceFolder}/src/Umbraco.Aspire.AppHost/Umbraco.Aspire.AppHost.csproj",
         "/property:GenerateFullPaths=true",
         "/consoleloggerparameters:NoSummary"
       ],
