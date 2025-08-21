@@ -1,4 +1,5 @@
 using Azure.Provisioning.Sql;
+using Umbraco.Aspire.AppHost.Commands;
 
 namespace Umbraco.Aspire.AppHost.Extensions;
 
@@ -32,7 +33,8 @@ public static partial class IDistributedApplicationBuilderExtensions {
 
         var azureSqlDatabase = azureSql
             .AddDatabase(databaseName)
-            .WithVSCodeMSSQLCommand();
+            .WithVSCodeMSSQLCommand()
+            .WithDownloadAzureSqlCommands(serverName, databaseName);
 
         umbracoProject
             .WithReference(azureSqlDatabase)

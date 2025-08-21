@@ -6,9 +6,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Logging;
 
-namespace Umbraco.Aspire.AppHost.Extensions;
+namespace Umbraco.Aspire.AppHost.Commands;
 
-public static class AzureSqlDatabaseResourceBuilderExtensions {
+public static class OpenVSCodeMSSQLCommandExtensions {
     public static IResourceBuilder<AzureSqlDatabaseResource> WithVSCodeMSSQLCommand(
             this IResourceBuilder<AzureSqlDatabaseResource> builder,
             bool useInsider = false) {
@@ -47,12 +47,12 @@ public static class AzureSqlDatabaseResourceBuilderExtensions {
         var connectionStringBuilder = new SqlConnectionStringBuilder(connectionString);
 
         var stringBuilder = new StringBuilder();
-        stringBuilder.Append($"server={Uri.EscapeDataString(connectionStringBuilder.DataSource)};");
-        stringBuilder.Append($"database={Uri.EscapeDataString(connectionStringBuilder.InitialCatalog)};");
-        stringBuilder.Append("authenticationType=SqlLogin;");
-        stringBuilder.Append("trustServerCertificate=true;");
-        stringBuilder.Append($"user={Uri.EscapeDataString(connectionStringBuilder.UserID)};");
-        stringBuilder.Append($"password={Uri.EscapeDataString(connectionStringBuilder.Password)};");
+        stringBuilder.Append($"server={Uri.EscapeDataString(connectionStringBuilder.DataSource)}");
+        stringBuilder.Append($"&database={Uri.EscapeDataString(connectionStringBuilder.InitialCatalog)}");
+        stringBuilder.Append("&authenticationType=SqlLogin");
+        stringBuilder.Append("&trustServerCertificate=true");
+        stringBuilder.Append($"&user={Uri.EscapeDataString(connectionStringBuilder.UserID)}");
+        stringBuilder.Append($"&password={Uri.EscapeDataString(connectionStringBuilder.Password)}");
 
         var argumentString = stringBuilder.ToString();
 

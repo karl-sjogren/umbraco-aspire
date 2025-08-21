@@ -15,6 +15,14 @@ public static partial class IDistributedApplicationBuilderExtensions {
                 });
         }
 
+        redisCache.OnResourceReady(async (resource, @event, cancellationToken) => {
+            await Task.Delay(1000, cancellationToken);
+        });
+
+        redisCache.OnConnectionStringAvailable(async (resource, @event, cancellationToken) => {
+            await Task.Delay(1000, cancellationToken);
+        });
+
         umbracoProject.WithReference(redisCache)
             .WaitFor(redisCache);
 

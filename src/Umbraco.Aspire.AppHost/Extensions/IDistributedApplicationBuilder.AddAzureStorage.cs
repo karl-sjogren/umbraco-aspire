@@ -1,3 +1,5 @@
+using Umbraco.Aspire.AppHost.Commands;
+
 namespace Umbraco.Aspire.AppHost.Extensions;
 
 public static partial class IDistributedApplicationBuilderExtensions {
@@ -11,7 +13,7 @@ public static partial class IDistributedApplicationBuilderExtensions {
             .RunAsEmulator(azurite => {
                 azurite.WithDataVolume();
                 azurite.WithLifetime(ContainerLifetime.Persistent);
-                azurite.WithCopyFromAzureCommand();
+                azurite.WithCopyFromAzureStorageCommand(accountName, containerName, prefix: "media/");
             });
 
         var blobContainer = storage.AddBlobContainer(containerName, blobContainerName: containerName);
