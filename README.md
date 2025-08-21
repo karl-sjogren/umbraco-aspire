@@ -17,6 +17,11 @@ folder which also launches through Aspire.
 A few extra metrics are reported through OpenTelemetry, these are setup
 in `src/Umbraco.Aspire.OpenTelemetry`.
 
+## Publishing to Azure
+
+Currently Aspire will always publish projects as containers, and this
+is a bit problematic for now. This is the next thing to get working.
+
 ## Aspire commands
 
 A few custom commands have been added to Aspire that suits my current
