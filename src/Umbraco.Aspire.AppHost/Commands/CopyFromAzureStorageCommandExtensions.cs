@@ -27,7 +27,7 @@ public static class CopyFromAzureStorageCommandExtensions {
 
         builder.WithCommand(
             name: "copy-blobs-from-azure",
-                displayName: "Copy Blobs from Azure",
+                displayName: "Copy blobs from Azure",
                 executeCommand: context => OnRunCopyBlobsFromAzureCommandAsync(context, storageAccount, containerName, prefix),
                 commandOptions: commandOptions);
 
