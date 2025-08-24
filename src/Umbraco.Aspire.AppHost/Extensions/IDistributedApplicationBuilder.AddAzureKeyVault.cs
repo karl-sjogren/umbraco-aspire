@@ -7,7 +7,7 @@ public static partial class IDistributedApplicationBuilderExtensions {
             string keyVaultName) {
         // Run a local Key Vault emulator in run mode
         if(builder.ExecutionContext.IsRunMode) {
-            var keyVault = builder
+            /*var keyVault = builder
                 .AddDockerfile(keyVaultName, "docker/keyvault")
                 .WithEndpoint(4997, 4997, "https")
                 .WithExternalHttpEndpoints()
@@ -17,6 +17,7 @@ public static partial class IDistributedApplicationBuilderExtensions {
             umbracoProject
                 .WaitFor(keyVault)
                 .WithEnvironment("ConnectionStrings__keyvault", ""); // TODO Figure out
+                */
         } else if(builder.ExecutionContext.IsPublishMode) {
             var keyVault = builder.AddAzureKeyVault(keyVaultName);
 

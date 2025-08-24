@@ -14,8 +14,11 @@ public static class IUmbracoBuilderExtensions {
             .AddAzureBlobImageSharpCache();
 
         hostApplicationBuilder.AddAzureBlobContainerClient("umbracomedia");
-        //hostApplicationBuilder.AddRedisDistributedCache(connectionName: "umbracoaspireredis");
         hostApplicationBuilder.Services.AddSingleton<IPostConfigureOptions<AzureBlobFileSystemOptions>, PostConfigureAzureBlobFileSystemOptions>();
+
+        if(hostApplicationBuilder.Configuration.GetConnectionString("umbracoaspireredis") is string) {
+            hostApplicationBuilder.AddRedisDistributedCache(connectionName: "umbracoaspireredis");
+        }
 
         // Enrich the UmbracoDbContext to report telemetry to Aspire
         hostApplicationBuilder.EnrichSqlServerDbContext<UmbracoDbContext>();
