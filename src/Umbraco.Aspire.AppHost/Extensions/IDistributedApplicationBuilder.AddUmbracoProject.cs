@@ -11,11 +11,8 @@ public static partial class IDistributedApplicationBuilderExtensions {
 
         if(builder.ExecutionContext.IsRunMode) {
             project
-                // Currently not working, https://github.com/dotnet/aspire/issues/10983
-                //.WithUrl("/umbraco", "Umbraco Backoffice")
-                .WithAnnotation(new ResourceUrlsCallbackAnnotation(c => {
-                    c.Urls.Add(new() { Url = "/umbraco", DisplayText = "Umbraco Backoffice", Endpoint = c.GetEndpoint("https") });
-                }));
+                .WithUrlForEndpoint("http", u => u.DisplayLocation = UrlDisplayLocation.DetailsOnly)
+                .WithUrlForEndpoint("https", e => new() { Url = "/umbraco", DisplayText = "Umbraco Backoffice" });
         }
 
         return project;
