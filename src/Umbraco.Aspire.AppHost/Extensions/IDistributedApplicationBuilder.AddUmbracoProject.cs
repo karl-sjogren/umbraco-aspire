@@ -12,7 +12,7 @@ public static partial class IDistributedApplicationBuilderExtensions {
         if(builder.ExecutionContext.IsRunMode) {
             project
                 .WithUrlForEndpoint("http", u => u.DisplayLocation = UrlDisplayLocation.DetailsOnly)
-                .WithUrlForEndpoint("https", e => new() { Url = "/umbraco", DisplayText = "Umbraco Backoffice" });
+                .WithUrlForEndpoint("https", _ => new() { Url = "/umbraco", DisplayText = "Umbraco Backoffice" });
         }
 
         return project;
