@@ -480,3 +480,7 @@ umbraco-package-schema.json
 
 # Media files
 /wwwroot/media/
+
+# Vite build output
+/wwwroot/assets/
+/wwwroot/.vite/

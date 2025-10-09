@@ -1,0 +1,46 @@
+@using System.Diagnostics
+
+@inject Shorthand.Vite.Contracts.IViteService Vite
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+        <meta name="format-detection" content="telephone=no">
+
+        <title>Page title</title>
+
+        @if(Activity.Current is { } currentActivity) {
+            <meta name="traceparent" content="@currentActivity.Id" />
+        }
+
+        <environment exclude="Development">
+            <link rel="modulepreload" href="@await Vite.GetAssetUrlAsync("scripts/index.mjs")" as="script" />
+            <link rel="stylesheet" href="@await Vite.GetAssetUrlAsync("style.css")" />
+        </environment>
+
+    </head>
+
+    <body>
+        <main>
+            @RenderBody()
+        </main>
+
+        @* This needs to go before the script bundle *@
+        @if(Environment.GetEnvironmentVariable("OTEL_EXPORTER_OTLP_ENDPOINT") is { Length: > 0 } endpointUrl) {
+            var headers = Environment.GetEnvironmentVariable("OTEL_EXPORTER_OTLP_HEADERS");
+            var attributes = Environment.GetEnvironmentVariable("OTEL_RESOURCE_ATTRIBUTES");
+
+            <script>
+                window.otelExporterConfiguration = { endpointUrl: '@endpointUrl', headers: '@headers', attributes: '@attributes' };
+            </script>
+        }
+
+        <script src="@await Vite.GetAssetUrlAsync("scripts/index.mjs")" async type="module"></script>
+
+        <environment names="Development">
+            <script src="/_framework/aspnetcore-browser-refresh.js"></script>
+        </environment>
+    </body>
+</html>
