@@ -47,7 +47,7 @@
     <PackageVersion Include="Shorthand.Vite" Version="0.2.0" />
     <PackageVersion Include="Shouldly" Version="4.3.0" />
     <PackageVersion Include="TestableIO.System.IO.Abstractions.TestingHelpers" Version="22.0.15" />
-    <PackageVersion Include="TestableIO.System.IO.Abstractions.Wrappers" Version="22.0.15" />
+    <PackageVersion Include="TestableIO.System.IO.Abstractions.Wrappers" Version="22.1.0" />
     <PackageVersion Include="Umbraco.Cms" Version="16.1.1" />
     <PackageVersion Include="Umbraco.StorageProviders.AzureBlob" Version="16.0.0" />
     <PackageVersion Include="Umbraco.StorageProviders.AzureBlob.ImageSharp" Version="16.0.0" />
